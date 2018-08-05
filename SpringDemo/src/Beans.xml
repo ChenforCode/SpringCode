@@ -11,4 +11,17 @@
         <property name="message1" value="Hello first China"></property>
         <property name="message3" value="Hello third China"></property>
     </bean>
+
+    <bean id="texteditor" class="liuchen.TextEditor">
+        <constructor-arg ref="spellchecker"/>
+    </bean>
+
+    <bean id="spellchecker" class="liuchen.SpellChecker"></bean>
+
+    <bean id="fooC" class="liuchen.FooC">
+        <constructor-arg index="0" ref="bean1"/>
+        <constructor-arg index="1" ref="bean2"/>
+    </bean>
+    <bean id="bean1" class="liuchen.Bean1"></bean>
+    <bean class="liuchen.Bean2" id="bean2"></bean>
 </beans>
