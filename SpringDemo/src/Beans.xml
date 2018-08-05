@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="helloworld" class="liuchen.HelloWorld">
+        <!--<property name="message" value="Hello world!"></property>-->
+        <property name="message1" value="Hello World"></property>
+        <property name="message2" value="Hello Second World"></property>
+    </bean>
+    <bean id="hellochina" class="liuchen.HelloChina" parent="helloworld" >
+        <property name="message1" value="Hello first China"></property>
+        <property name="message3" value="Hello third China"></property>
+    </bean>
+</beans>
