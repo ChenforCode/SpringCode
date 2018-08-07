@@ -2,6 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--普通的传值-->
     <bean id="helloworld" class="liuchen.HelloWorld">
         <!--<property name="message" value="Hello world!"></property>-->
         <property name="message1" value="Hello World"></property>
@@ -12,16 +14,69 @@
         <property name="message3" value="Hello third China"></property>
     </bean>
 
+    <!--构造函数传值-->
     <bean id="texteditor" class="liuchen.TextEditor">
         <constructor-arg ref="spellchecker"/>
     </bean>
 
     <bean id="spellchecker" class="liuchen.SpellChecker"></bean>
 
+
+    <!--构造函数有多个参数的情况进行传值-->
     <bean id="fooC" class="liuchen.FooC">
         <constructor-arg index="0" ref="bean1"/>
         <constructor-arg index="1" ref="bean2"/>
     </bean>
     <bean id="bean1" class="liuchen.Bean1"></bean>
     <bean class="liuchen.Bean2" id="bean2"></bean>
+
+
+    <!--通过构造器即setter和getter方法进行传值-->
+    <bean id="setbean2" class="liuchen.SetterMain2">
+        <property name="setterMain1" ref="setterMain1"></property>
+    </bean>
+    <bean class="liuchen.SetterMain1" id="setterMain1"></bean>
+    
+
+    <!--setter传值方式，直接传value和内部bean传一个类-->
+    <bean id="testbean1" class="liuchen.TestBean1">
+        <property name="age" value="18"></property>
+        <property name="name" value="刘琛"></property>
+        <property name="sex" value="男"></property>
+        <property name="innerC">
+            <bean id="innerc" class="liuchen.innerC"></bean>
+        </property>
+    </bean>
+
+    <!--注入集合-->
+    <bean id="javacollection" class="liuchen.JavaCollection">
+        <!--这个属性是一个List集合，在它里边可以使用<list></list>标签进行传递多个值-->
+        <property name="addressList">
+            <list>
+                <value>1</value>
+                <value>2</value>
+            </list>
+        </property>
+        <!--基本同上，可以使用map标签进行传递键值对，特别注意<entry>这个标签-->
+        <property name="addressMap">
+            <map>
+                <entry key="num1" value="1"></entry>
+                <entry key="num2" value="2"></entry>
+            </map>
+        </property>
+        <!--与Map有一些类似-->
+        <property name="addressPro">
+            <props>
+                <prop key="num1">1</prop>
+                <prop key="num2">2</prop>
+            </props>
+        </property>
+        <!--与List基本相同-->
+        <property name="addressSet">
+            <set>
+                <value>1</value>
+                <value>2</value>
+            </set>
+        </property>
+    </bean>
 </beans>
