@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        ">
+
+    <aop:config>
+        <aop:aspect id="log" ref="logging">
+            <aop:pointcut id="selectall" expression="execution(* liuchen.*.*(..))"/>
+            <aop:before method="beforeAdvice" pointcut-ref="selectall"></aop:before>
+            <aop:after method="afterAdvice" pointcut-ref="selectall"></aop:after>
+            <aop:after-returning pointcut-ref="selectall" returning="retVal" method="afterReturningAdvice"/>
+            <aop:after-throwing pointcut-ref="selectall" throwing="ex" method="AfterThrowingAdvice"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="student" class="liuchen.Student">
+        <property name="name" value="liuchen"></property>
+        <property name="age" value="19"></property>
+    </bean>
+    <bean id="logging" class="liuchen.Logging"></bean>
+</beans>

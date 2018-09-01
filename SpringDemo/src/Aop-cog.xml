@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="chenAspect" class="liuchen.ChenAspect"></bean>
+    <bean id="chenBiz" class="liuchen.ChenBiz"></bean>
+    <aop:config>
+        <aop:aspect id="chenAspect" ref="chenAspect">
+            <!--切面的生命，表达式决定了什么方法执行的时候会进行触发-->
+            <aop:pointcut id="chenPoint" expression="execution(* liuchen.*Biz.*(..))"></aop:pointcut>
+
+            <!--在切入点声明的方法执行之前会执行自定义的before方法-->
+            <aop:before method="before" pointcut-ref="chenPoint"></aop:before>
+
+            <!--在声明的方法正常结束之后执行-->
+            <aop:after-returning method="afterReturning" pointcut-ref="chenPoint"></aop:after-returning>
+
+            <!--抛出异常之后声明-->
+            <aop:after-throwing method="afterThrowing" pointcut-ref="chenPoint"></aop:after-throwing>
+
+            <!--在执行完毕之后执行，无论是抛出异常，或者是正常结束都会执行-->
+            <aop:after method="after" pointcut-ref="chenPoint"></aop:after>
+
+            <!--环绕，即在声明的方法执行之前和执行结束之后都会执行-->
+            <aop:around method="around" pointcut-ref="chenPoint"></aop:around>
+
+            <!--环绕，可以写出具体执行的方法和参数-->
+            <aop:around method="aroundInit" pointcut="execution(* liuchen.ChenBiz.init(String,int))
+                    and args(bizName, times))"></aop:around>
+
+            <!--这些东西都可以引用一个切入点,即某些方法执行的时候触发,同样也可以自己写一个切入点-->
+        </aop:aspect>
+
+
+    </aop:config>
+</beans>
